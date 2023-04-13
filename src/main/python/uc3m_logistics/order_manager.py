@@ -1,4 +1,4 @@
-"""Module """
+""" Order Manager Module """
 import datetime
 import re
 import json
@@ -16,9 +16,7 @@ class OrderManager:
 
     @staticmethod
     def validate_ean13( ean13 ):
-        """method vor validating a ean13 code"""
-        # PLEASE INCLUDE HERE THE CODE FOR VALIDATING THE EAN13
-        # RETURN TRUE IF THE EAN13 IS RIGHT, OR FALSE IN OTHER CASE
+        """method for validating a ean13 code"""
         checksum = 0
         code_read = -1
         res = False
@@ -54,14 +52,14 @@ class OrderManager:
 
     @staticmethod
     def save_store( data ):
-        """Medthod for saving the orders store"""
+        """Method for saving the orders store"""
         file_store = JSON_FILES_PATH + "orders_store.json"
         #first read the file
         try:
             with open(file_store, "r", encoding="utf-8", newline="") as file:
                 data_list = json.load(file)
         except FileNotFoundError:
-            # file is not found , so  init my data_list
+            # file is not found , so init my data_list
             data_list = []
         except json.JSONDecodeError as ex:
             raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from ex
@@ -82,7 +80,7 @@ class OrderManager:
         return True
 
     @staticmethod
-    def save_fast(data):
+    def save_fast(data): # TODO change names to be more descriptive
         """Method for saving the orders store"""
         orders_store = JSON_FILES_PATH + "orders_store.json"
         with open(orders_store, "r+", encoding="utf-8", newline="") as file:
