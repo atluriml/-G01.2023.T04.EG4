@@ -42,11 +42,40 @@ class OrderManager:
             raise OrderManagementException("Invalid EAN13 control digit")
         return res
 
+    def validate_zip_code(self, zip_code):
+        """Validates zip code"""
+        if zip_code.isnumeric() and len(zip_code) == 5:
+            if (int(zip_code) > 52999 or int(zip_code) < 1000):
+                raise OrderManagementException("zip_code is not valid")
+        else:
+            raise OrderManagementException("zip_code format is not valid")
+
+    def validate_phone_number(self, phone_number):
+        """Validates phone number"""
+        phone_num_regex = re.compile(r"^(\+)[0-9]{11}")
+        res = phone_num_regex.fullmatch(phone_number)
+        if not res:
+            raise OrderManagementException("phone number is not valid")
+
+    def validate_address(self, address):
+        """Validates address"""
+        address_regex = re.compile(r"^(?=^.{20,100}$)(([a-zA-Z0-9]+\s)+[a-zA-Z0-9]+)$")
+        res = address_regex.fullmatch(address)
+        if not res:
+            raise OrderManagementException("address is not valid")
+
+    def validate_order_type(self, order_type):
+        """Validates order type"""
+        order_type_regex = re.compile(r"(Regular|Premium)")
+        res = order_type_regex.fullmatch(order_type)
+        if not res:
+            raise OrderManagementException("order_type is not valid")
+
     @staticmethod
     def validate_tracking_code( t_c ):
         """Method for validating sha256 values"""
-        myregex = re.compile(r"[0-9a-fA-F]{64}$")
-        res = myregex.fullmatch(t_c)
+        tracking_code_regex = re.compile(r"[0-9a-fA-F]{64}$")
+        res = tracking_code_regex.fullmatch(t_c)
         if not res:
             raise OrderManagementException("tracking_code format is not valid")
 
@@ -121,25 +150,11 @@ class OrderManager:
                         zip_code ):
         """Register the orders into the order's file"""
 
-        myregex = re.compile(r"(Regular|Premium)")
-        res = myregex.fullmatch(order_type)
-        if not res:
-            raise OrderManagementException ("order_type is not valid")
+        self.validate_order_type(order_type)
+        self.validate_address(address)
+        self.validate_phone_number(phone_number)
+        self.validate_zip_code(zip_code)
 
-        myregex = re.compile(r"^(?=^.{20,100}$)(([a-zA-Z0-9]+\s)+[a-zA-Z0-9]+)$")
-        res = myregex.fullmatch(address)
-        if not res:
-            raise OrderManagementException ("address is not valid")
-
-        myregex = re.compile(r"^(\+)[0-9]{11}")
-        res = myregex.fullmatch(phone_number)
-        if not res:
-            raise OrderManagementException ("phone number is not valid")
-        if zip_code.isnumeric() and len(zip_code) == 5:
-            if (int(zip_code) > 52999 or int(zip_code) < 1000):
-                raise OrderManagementException("zip_code is not valid")
-        else:
-            raise OrderManagementException("zip_code format is not valid")
         if self.validate_ean13(product_id):
             my_order = OrderRequest(product_id,
                                     order_type,
