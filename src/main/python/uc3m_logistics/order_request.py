@@ -2,17 +2,21 @@
 import hashlib
 import json
 from datetime import datetime
+import re
+
+from .order_management_exception import OrderManagementException
+from .validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, PhoneNumberAttribute, AddressAttribute
 
 class OrderRequest:
     """Class representing the register of the order in the system"""
     #pylint: disable=too-many-arguments
     def __init__( self, product_id, order_type,
                   delivery_address, phone_number, zip_code ):
-        self.__product_id = product_id
-        self.__delivery_address = delivery_address
-        self.__order_type = order_type
-        self.__phone_number = phone_number
-        self.__zip_code = zip_code
+        self.__product_id = EAN13Attribute(product_id).value
+        self.__delivery_address = AddressAttribute(delivery_address).value
+        self.__order_type = OrderTypeAttribute(order_type).value
+        self.__phone_number = PhoneNumberAttribute(phone_number).value
+        self.__zip_code = ZipCodeAttribute(zip_code).value
         justnow = datetime.utcnow()
         self.__time_stamp = datetime.timestamp(justnow)
         self.__order_id =  hashlib.md5(self.__str__().encode()).hexdigest()
@@ -28,7 +32,7 @@ class OrderRequest:
 
     @delivery_address.setter
     def delivery_address( self, value ):
-        self.__delivery_address = value
+        self.__delivery_address = AddressAttribute(value).value # TODO make sure you do this
 
     @property
     def order_type( self ):
@@ -36,7 +40,7 @@ class OrderRequest:
         return self.__order_type
     @order_type.setter
     def order_type( self, value ):
-        self.__order_type = value
+        self.__order_type = OrderTypeAttribute(value).value
 
     @property
     def phone_number( self ):
@@ -44,7 +48,7 @@ class OrderRequest:
         return self.__phone_number
     @phone_number.setter
     def phone_number( self, value ):
-        self.__phone_number = value
+        self.__phone_number = PhoneNumberAttribute(value).value
 
     @property
     def product_id( self ):
@@ -52,7 +56,7 @@ class OrderRequest:
         return self.__product_id
     @product_id.setter
     def product_id( self, value ):
-        self.__product_id = value
+        self.__product_id = EAN13Attribute(value).value
 
     @property
     def time_stamp(self):
@@ -68,3 +72,7 @@ class OrderRequest:
     def zip_code( self ):
         """Returns the order's zip_code"""
         return self.__zip_code
+
+    @zip_code.setter
+    def zip_code(self, value):
+        self.__zip_code = ZipCodeAttribute(value).value
