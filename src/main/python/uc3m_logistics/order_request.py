@@ -32,7 +32,7 @@ class OrderRequest:
 
     @delivery_address.setter
     def delivery_address( self, value ):
-        self.__delivery_address = AddressAttribute(value).value # TODO make sure you do this
+        self.__delivery_address = AddressAttribute(value).value
 
     @property
     def order_type( self ):

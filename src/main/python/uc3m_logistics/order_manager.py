@@ -13,64 +13,6 @@ class OrderManager:
     """Class for providing the methods for managing the orders process"""
     def __init__(self):
         pass
-    # TODO only the three main functions should be in order manager;
-    #  move the validation and store functions to other classes
-    # @staticmethod
-    # def validate_ean13( ean13 ):
-    #     """method for validating a ean13 code"""
-    #     checksum = 0
-    #     code_read = -1
-    #     res = False
-    #     regex_ean13 = re.compile("^[0-9]{13}$")
-    #     valid_ean13_format = regex_ean13.fullmatch(ean13)
-    #     if valid_ean13_format is None:
-    #         raise OrderManagementException("Invalid EAN13 code string")
-    #
-    #     for i, digit in enumerate(reversed(ean13)):
-    #         try:
-    #             current_digit = int(digit)
-    #         except ValueError as v_e:
-    #             raise OrderManagementException("Invalid EAN13 code string") from v_e
-    #         if i == 0:
-    #             code_read = current_digit
-    #         else:
-    #             checksum += (current_digit) * 3 if (i % 2 != 0) else current_digit
-    #     control_digit = (10 - (checksum % 10)) % 10
-    #
-    #     if (code_read != -1) and (code_read == control_digit):
-    #         res = True
-    #     else:
-    #         raise OrderManagementException("Invalid EAN13 control digit")
-    #     return res
-    #
-    # def validate_zip_code(self, zip_code):
-    #     """Validates zip code"""
-    #     if zip_code.isnumeric() and len(zip_code) == 5:
-    #         if (int(zip_code) > 52999 or int(zip_code) < 1000):
-    #             raise OrderManagementException("zip_code is not valid")
-    #     else:
-    #         raise OrderManagementException("zip_code format is not valid")
-    #
-    # def validate_phone_number(self, phone_number):
-    #     """Validates phone number"""
-    #     phone_num_regex = re.compile(r"^(\+)[0-9]{11}")
-    #     res = phone_num_regex.fullmatch(phone_number)
-    #     if not res:
-    #         raise OrderManagementException("phone number is not valid")
-    #
-    # def validate_address(self, address):
-    #     """Validates address"""
-    #     address_regex = re.compile(r"^(?=^.{20,100}$)(([a-zA-Z0-9]+\s)+[a-zA-Z0-9]+)$")
-    #     res = address_regex.fullmatch(address)
-    #     if not res:
-    #         raise OrderManagementException("address is not valid")
-    #
-    # def validate_order_type(self, order_type):
-    #     """Validates order type"""
-    #     order_type_regex = re.compile(r"(Regular|Premium)")
-    #     res = order_type_regex.fullmatch(order_type)
-    #     if not res:
-    #         raise OrderManagementException("order_type is not valid")
 
     @staticmethod
     def validate_tracking_code( t_c ):
@@ -151,12 +93,6 @@ class OrderManager:
                         zip_code ):
         """Register the orders into the order's file"""
 
-        # self.validate_order_type(order_type)
-        # self.validate_address(address)
-        # self.validate_phone_number(phone_number)
-        # self.validate_zip_code(zip_code)
-        #
-        # if self.validate_ean13(product_id):
         my_order = OrderRequest(product_id,
                                 order_type,
                                 address,
