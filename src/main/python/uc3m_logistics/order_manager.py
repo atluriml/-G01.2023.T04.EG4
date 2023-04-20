@@ -15,7 +15,7 @@ class OrderManager:
         pass
 
     @staticmethod
-    def validate_tracking_code( t_c ):
+    def validate_tracking_code(t_c):
         """Method for validating sha256 values"""
         tracking_code_regex = re.compile(r"[0-9a-fA-F]{64}$")
         res = tracking_code_regex.fullmatch(t_c)
@@ -23,7 +23,7 @@ class OrderManager:
             raise OrderManagementException("tracking_code format is not valid")
 
     @staticmethod
-    def save_store( data ):
+    def save_store (data) :
         """Method for saving the orders store"""
         file_store = JSON_FILES_PATH + "orders_store.json"
         #first read the file
@@ -86,6 +86,7 @@ class OrderManager:
 
 
     #pylint: disable=too-many-arguments
+    """first function"""
     def register_order( self, product_id,
                         order_type,
                         address,
@@ -104,8 +105,13 @@ class OrderManager:
         return my_order.order_id
 
     #pylint: disable=too-many-locals
+    """second function"""
     def send_product ( self, input_file ):
         """Sends the order included in the input_file"""
+
+
+        send_product_input = SendProductInput.from_json(input_file)
+
         try:
             with open(input_file, "r", encoding="utf-8", newline="") as file:
                 data = json.load(file)
@@ -176,17 +182,17 @@ class OrderManager:
         """Register the delivery of the product"""
         self.validate_tracking_code(tracking_code)
 
-        #check if this tracking_code is in shipments_store
+        # check if this tracking_code is in shipments_store
         shimpents_store_file = JSON_FILES_PATH + "shipments_store.json"
         # first read the file
         try:
             with open(shimpents_store_file, "r", encoding="utf-8", newline="") as file:
                 data_list = json.load(file)
-        except json.JSONDecodeError as ex:
-            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from ex
-        except FileNotFoundError as ex:
-            raise OrderManagementException("shipments_store not found") from ex
-        #search this tracking_code
+        except json.JSONDecodeError as exception:
+            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        except FileNotFoundError as exception:
+            raise OrderManagementException("shipments_store not found") from exception
+        # search this tracking_code
         found = False
         for item in data_list:
             if item["_OrderShipping__tracking_code"] == tracking_code:
@@ -195,8 +201,8 @@ class OrderManager:
         if not found:
             raise OrderManagementException("tracking_code is not found")
 
-        today= datetime.today().date()
-        delivery_date= datetime.fromtimestamp(del_timestamp).date()
+        today = datetime.today().date()
+        delivery_date = datetime.fromtimestamp(del_timestamp).date()
         if delivery_date != today:
             raise OrderManagementException("Today is not the delivery date")
 
@@ -205,11 +211,11 @@ class OrderManager:
         try:
             with open(shipments_file, "r", encoding="utf-8", newline="") as file:
                 data_list = json.load(file)
-        except FileNotFoundError as ex:
+        except FileNotFoundError as exception:
             # file is not found , so  init my data_list
             data_list = []
-        except json.JSONDecodeError as ex:
-            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from ex
+        except json.JSONDecodeError as exception:
+            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from exception
 
             # append the delivery info
         data_list.append(str(tracking_code))
@@ -217,6 +223,6 @@ class OrderManager:
         try:
             with open(shipments_file, "w", encoding="utf-8", newline="") as file:
                 json.dump(data_list, file, indent=2)
-        except FileNotFoundError as ex:
-            raise OrderManagementException("Wrong file or file path") from ex
+        except FileNotFoundError as exception:
+            raise OrderManagementException("Wrong file or file path") from exception
         return True
