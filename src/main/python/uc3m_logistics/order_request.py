@@ -2,10 +2,8 @@
 import hashlib
 import json
 from datetime import datetime
-import re
-
-from .order_management_exception import OrderManagementException
-from .validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, PhoneNumberAttribute, AddressAttribute
+from .validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, \
+    PhoneNumberAttribute, AddressAttribute
 
 class OrderRequest:
     """Class representing the register of the order in the system"""
