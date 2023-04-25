@@ -19,7 +19,7 @@ class SendProductInput:
 
     def from_json(cls, file_path):
         try:
-            with open(file_path, "r", encoding="utf-8", newline="") as file:
+            with open(file_path, "r", encoding="utf-8", newline="") as file_path:
                 data = json.load(file_path)
         except FileNotFoundError as exception:
             # file is not found
