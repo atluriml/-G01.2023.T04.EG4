@@ -1,5 +1,6 @@
 from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
-from .email_attribute import EmailAttribute
+from uc3m_logistics.validation.email_attribute import EmailAttribute
+from uc3m_logistics.validation.order_id_attribute import OrderIdAttributes
 import json
 
 
@@ -19,7 +20,7 @@ class SendProductInput:
     def from_json(cls, file_path):
         try:
             with open(file_path, "r", encoding="utf-8", newline="") as file:
-                data = json.load(json_file)
+                data = json.load(file_path)
         except FileNotFoundError as exception:
             # file is not found
             raise OrderManagementException("File is not found") from exception
