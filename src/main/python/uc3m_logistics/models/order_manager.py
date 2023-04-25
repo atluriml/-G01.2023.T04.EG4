@@ -8,6 +8,8 @@ from src.main.python.uc3m_logistics.models.order_request import OrderRequest
 from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
 from src.main.python.uc3m_logistics.models.order_shipping import OrderShipping
 from src.main.python.uc3m_logistics.order_manager_config import JSON_FILES_PATH
+from uc3m_logistics.models.send_product_input import SendProductInput
+
 
 class OrderManager:
     """Class for providing the methods for managing the orders process"""
