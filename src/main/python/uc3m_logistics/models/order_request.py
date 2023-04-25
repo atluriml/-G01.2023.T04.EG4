@@ -2,7 +2,7 @@
 import hashlib
 import json
 from datetime import datetime
-from .validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, \
+from src.main.python.uc3m_logistics.validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, \
     PhoneNumberAttribute, AddressAttribute
 
 class OrderRequest:

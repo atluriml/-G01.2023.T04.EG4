@@ -1,4 +1,4 @@
-from .order_management_exception import OrderManagementException
+from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
 from .email_attribute import EmailAttribute
 import json
 

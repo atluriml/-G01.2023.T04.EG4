@@ -4,10 +4,10 @@ import re
 import json
 from datetime import datetime
 from freezegun import freeze_time
-from .order_request import OrderRequest
-from .order_management_exception import OrderManagementException
-from .order_shipping import OrderShipping
-from .order_manager_config import JSON_FILES_PATH
+from src.main.python.uc3m_logistics.models.order_request import OrderRequest
+from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
+from src.main.python.uc3m_logistics.models.order_shipping import OrderShipping
+from src.main.python.uc3m_logistics.order_manager_config import JSON_FILES_PATH
 
 class OrderManager:
     """Class for providing the methods for managing the orders process"""
