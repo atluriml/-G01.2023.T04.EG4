@@ -1,6 +1,8 @@
 import json
 from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
-from abc import abstractmethod, ABC
+from abc import ABC
+from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
+
 
 class JsonStore(ABC, metaclass=FinalMeta):
     _FILE_PATH = None
