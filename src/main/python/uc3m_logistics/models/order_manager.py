@@ -112,7 +112,6 @@ class OrderManager:
         """Sends the order included in the input_file"""
 
 
-        send_product_input = SendProductInput.from_json(input_file)
 
         try:
             with open(input_file, "r", encoding="utf-8", newline="") as file:

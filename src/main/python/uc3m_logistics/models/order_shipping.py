@@ -2,6 +2,9 @@
 from datetime import datetime
 import hashlib
 
+from uc3m_logistics.models.send_product_input import SendProductInput
+
+
 #pylint: disable=too-many-instance-attributes
 class OrderShipping():
     """Class representing the shipping of an order"""
@@ -23,6 +26,22 @@ class OrderShipping():
         self.__delivery_day = self.__issued_at + (delivery_days * 24 * 60 * 60)
         self.__tracking_code = hashlib.sha256(self.__signature_string().encode()).hexdigest()
 
+    def save_to_store(self):
+        """saves the order request to the store"""
+        OrderShippingStore().add_item(self)
+
+    @classmethod
+    def from_send_input_file(cls, input_file_path: str):
+        send_product_input = SendProductInput.from_json(input_file_path)
+
+        order_request = OrderRequestStore().find_item_by_key(send_product_input.order_id)
+
+        order_shipping = cls(product_id=order_request.product_id,
+                             order_id=send_product_input.order_id,
+                             order_type=order_request.order_type,
+                             delivery_email=send_product_input.email)
+
+        return order_shipping
     def __signature_string( self ):
         """Composes the string to be used for generating the tracking_code"""
         return "{alg:" + self.__alg + ",typ:" + self.__type + ",order_id:" + \
