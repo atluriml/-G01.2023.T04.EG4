@@ -10,9 +10,8 @@ class Attribute(ABC):
 
     @abstractmethod
     def validate(self, value):
-       pass
+        pass
 
     @property
     def value(self):
-        """Returns Attribute Value"""
         return self.__value
