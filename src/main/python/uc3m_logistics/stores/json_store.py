@@ -1,9 +1,12 @@
 import json
 from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
-from abc import ABC
+from abc import ABC, ABCMeta
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
+from uc3m_logistics.singleton_metaclass import SingletonMeta
 
 
+class FinalMeta(ABCMeta,SingletonMeta):
+    pass
 class JsonStore(ABC, metaclass=FinalMeta):
     _FILE_PATH = None
 
