@@ -26,3 +26,10 @@ class SendProductInput:
             raise OrderManagementException("File is not found") from exception
         except json.JSONDecodeError as exception:
             raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        #TODO finish this MAKE SURE TESTS MATCH
+        if "ContactEmail" not in data:
+            raise OrderManagementException("Bad label Contact Email")
+        if "OrderID" not in data:
+            raise OrderManagementException("Bad label Order ID")
+
+        return cls(data["OrderID"], data["ContactEmail"])

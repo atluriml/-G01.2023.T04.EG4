@@ -88,7 +88,6 @@ class OrderManager:
 
 
     #pylint: disable=too-many-arguments
-    """first function"""
     def register_order( self, product_id,
                         order_type,
                         address,
@@ -107,10 +106,17 @@ class OrderManager:
         return my_order.order_id
 
     #pylint: disable=too-many-locals
-    """second function"""
     def send_product ( self, input_file ):
         """Sends the order included in the input_file"""
 
+
+        # TODO this is what the function should look like
+        # order_shipping = OrderShipping.from_send_input_file(input_file)
+        # order_shipping.save_to_store()
+
+
+        #TODO THIS IS THE FIRST PART for this method i jsut commented it out
+        #send_product_input = SendProductInput.from_json(input_file)
 
 
         try:
@@ -141,6 +147,7 @@ class OrderManager:
             raise OrderManagementException("Bad label") from ex
         file_store = JSON_FILES_PATH + "orders_store.json"
 
+        # TODO implement this part still
         with open(file_store, "r", encoding="utf-8", newline="") as file:
             data_list = json.load(file)
         found = False
