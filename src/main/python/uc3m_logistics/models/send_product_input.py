@@ -20,20 +20,20 @@ class SendProductInput:
         """email function"""
         return self.__email
 
+    @classmethod
     def from_json(cls, file_path):
         """from json method"""
         try:
-            with open(file_path, "r", encoding="utf-8", newline="") as file_path:
-                data = json.load(file_path)
+            with open(file_path, "r", encoding="utf-8", newline="") as file:
+                data = json.load(file)
         except FileNotFoundError as exception:
             # file is not found
             raise OrderManagementException("File is not found") from exception
         except json.JSONDecodeError as exception:
             raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from exception
-        #TODO finish this MAKE SURE TESTS MATCH
         if "ContactEmail" not in data:
-            raise OrderManagementException("Bad label Contact Email")
+            raise OrderManagementException("Bad label")
         if "OrderID" not in data:
-            raise OrderManagementException("Bad label Order ID")
+            raise OrderManagementException("Bad label")
 
         return cls(data["OrderID"], data["ContactEmail"])
