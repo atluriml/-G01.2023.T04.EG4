@@ -1,9 +1,11 @@
+"""order shipping store module"""
 from uc3m_logistics.models.keys.order_shipping_keys import OrderShippingKeys
 from uc3m_logistics.order_manager_config import Config
 from uc3m_logistics.stores import JsonStore
 
 
 class OrderShippingStore(JsonStore):
+    """Order shipping store class"""
     _FILE_PATH = Config.ORDER_SHIPMENTS_STORE_PATH.value
 
     def find_item_by_key(self, key: str):
@@ -12,6 +14,6 @@ class OrderShippingStore(JsonStore):
                 return item
         return None
 
-    def add_item(self, new_item):
-        self.data.append(new_item.__dict__)
+    def add_item(self, item):
+        self.data.append(item.__dict__)
         self.save()

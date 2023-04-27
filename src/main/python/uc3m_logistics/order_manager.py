@@ -1,25 +1,17 @@
 """ Order Manager Module """
-import re
-import json
 from uc3m_logistics.models.order_request import OrderRequest
-from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from uc3m_logistics.models.order_shipping import OrderShipping
-from uc3m_logistics.order_manager_config import JSON_FILES_PATH
 from uc3m_logistics.models.order_delivery import OrderDelivery
-from .singleton_metaclass import SingletonMeta
-
-from uc3m_logistics.models.send_product_input import SendProductInput
-
-
 
 class OrderManager:
+    """Class for providing the methods for managing the orders process"""
 
-
-
+    # pylint: disable=invalid-name
     class __OrderManager:
 
+        @staticmethod
         # pylint: disable=too-many-arguments
-        def register_order(self, product_id,
+        def register_order(product_id,
                            order_type,
                            address,
                            phone_number,
@@ -37,7 +29,7 @@ class OrderManager:
             return order_request.order_id
 
         # pylint: disable=too-many-locals
-        def send_product(input_file):
+        def send_product(self, input_file):
             """Sends the order included in the input_file"""
 
             order_shipping = OrderShipping.from_send_input_file(input_file)
@@ -45,7 +37,8 @@ class OrderManager:
 
             return order_shipping.tracking_code
 
-        def deliver_product(self, tracking_code):
+        @staticmethod
+        def deliver_product(tracking_code):
             """Register the delivery of the product"""
 
             order_delivery = OrderDelivery.from_order_tracking_code(tracking_code)
@@ -60,9 +53,8 @@ class OrderManager:
             OrderManager._instance = OrderManager.__OrderManager()
         return OrderManager._instance
 
-    def __getattr__(self, instances):
-        return getattr(self.instances_, instances)
+    def __getattr__(self, item):
+        return getattr(self._instance, item)
 
-    def __setattr__(self, instances, value):
-        return setattr(self.instances_, instances, value)
-
+    def __setattr__(self, key, value):
+        return setattr(self._instance, key, value)

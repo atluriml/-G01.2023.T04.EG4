@@ -95,6 +95,7 @@ class TestSendProduct(TestCase):
                                   order_type="Regular",
                                   phone_number="+34123456789",
                                   zip_code="01000")
+        # pylint: disable=broad-except
         except Exception:
             pass
         #check the method
@@ -208,6 +209,7 @@ class TestSendProduct(TestCase):
             my_manager.send_product(file_test)
         #pylint: disable=broad-except
         except Exception as exception_raised:
+            # pylint: disable=unnecessary-dunder-call
             exception_message = exception_raised.__str__()
 
         #restore the original orders' store

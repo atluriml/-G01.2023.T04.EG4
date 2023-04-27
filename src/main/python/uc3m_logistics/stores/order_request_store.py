@@ -1,3 +1,4 @@
+"""Order request store module"""
 from datetime import datetime
 from freezegun import freeze_time
 
@@ -5,12 +6,12 @@ from uc3m_logistics.exceptions import OrderManagementException
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.models.keys.order_request_keys import OrderRequestKeys
 from uc3m_logistics.stores import JsonStore
-
-from uc3m_logistics.order_manager_config import Config, JSON_FILES_PATH
+from uc3m_logistics.order_manager_config import Config
 
 
 class OrderRequestStore(JsonStore):
-    _FILE_PATH = JSON_FILES_PATH + "orders_store.json"
+    """order request store class"""
+    _FILE_PATH = Config.ORDER_REQUESTS_STORE_PATH.value
 
     def find_item_by_key(self, key: str):
         found_item: dict or None = None
@@ -27,6 +28,7 @@ class OrderRequestStore(JsonStore):
             zip_code = found_item[OrderRequestKeys.ZIP_CODE.value]
 
             with freeze_time(datetime.fromtimestamp(order_timestamp).date()): # lazy import
+                #pylint: disable=import-outside-toplevel
                 from uc3m_logistics.models.order_request import OrderRequest
                 order = OrderRequest(product_id=product_id,
                                      order_type=order_type,

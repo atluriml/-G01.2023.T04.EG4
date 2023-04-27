@@ -1,12 +1,13 @@
+"""Exception Messages Module"""
 from enum import Enum
 
 class ExceptionMessages(Enum):
-    # TODO: ORGANIZE THIS CLASS
+    """Exception Messages Class"""
 
     WRONG_FILE_OR_PATH = "wrong provided file or path"
     JSON_DECODE_ERROR = "JSON decoding error"
-    ORDERS_DATA_MANIPULATED = "'Orders' data have been manipulated"
-    ORDER_ID_ALREADY_EXISTS = "Order_id is already registered in order_stores"
+    ORDERS_DATA_MANIPULATED = "Orders' data have been manipulated"
+    ORDER_ID_ALREADY_EXISTS = "order_id is already registered in order_stores"
     FILE_NOT_FOUND = "File is not found"
 
     """ATTRIBUTES"""
@@ -24,6 +25,5 @@ class ExceptionMessages(Enum):
     CONTACT_EMAIL_NOT_PRESENT = "ContactEmail is not present"
 
     """ORDER DELIVERY"""
-
     TRACKING_CODE_IS_NOT_FOUND = "tracking_code is not found"
     TODAY_IS_NOT_DELIVERY_DATE = "Today is not the delivery date"
