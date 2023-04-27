@@ -1,14 +1,16 @@
 import datetime
 
+from uc3m_logistics import OrderManagementException
+from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.models.keys.order_request_keys import OrderRequestKeys
 from uc3m_logistics.stores import JsonStore
 from freezegun import freeze_time
 
-from uc3m_logistics.order_manager_config import Config
+from uc3m_logistics.order_manager_config import Config, JSON_FILES_PATH
 
 
 class OrderRequestStore(JsonStore):
-    _FILE_PATH = Config.ORDER_REQUESTS_STORE_PATH.value
+    _FILE_PATH = JSON_FILES_PATH + "orders_store.json"
 
     def find_item_by_key(self, key: str):
         found_item: dict or None = None
@@ -31,8 +33,14 @@ class OrderRequestStore(JsonStore):
                                      delivery_address=address,
                                      phone_number=phone,
                                      zip_code=zip_code)
+            if order.order_id != found_item[OrderRequestKeys.ID.value]:
+                raise OrderManagementException(ExceptionMessages.ORDERS_DATA_MANIPULATED)
+            return order
+        else:
+            raise OrderManagementException(ExceptionMessages.ORDER_ID_NOT_FOUND.value)
 
-
+    def add_item(self):
+        pass
 
 
 

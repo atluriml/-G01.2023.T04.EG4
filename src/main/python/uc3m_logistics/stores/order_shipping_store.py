@@ -15,4 +15,4 @@ class OrderShippingStore(JsonStore):
 
     def add_item(self, new_item):
         self.data.append(new_item.__dict__)
-        self.data = self.data
+        self.save()

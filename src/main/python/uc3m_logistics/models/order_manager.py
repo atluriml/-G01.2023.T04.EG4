@@ -6,6 +6,7 @@ from uc3m_logistics.exceptions.order_management_exception import OrderManagement
 from src.main.python.uc3m_logistics.models.order_shipping import OrderShipping
 from src.main.python.uc3m_logistics.order_manager_config import JSON_FILES_PATH
 from uc3m_logistics.models.order_delivery import OrderDelivery
+from uc3m_logistics.models.send_product_input import SendProductInput
 
 
 class OrderManager:
@@ -21,34 +22,6 @@ class OrderManager:
         if not res:
             raise OrderManagementException("tracking_code format is not valid")
 
-    @staticmethod
-    def save_store (data) :
-        """Method for saving the orders store"""
-        file_store = JSON_FILES_PATH + "orders_store.json"
-        #first read the file
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                data_list = json.load(file)
-        except FileNotFoundError:
-            # file is not found , so init my data_list
-            data_list = []
-        except json.JSONDecodeError as ex:
-            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from ex
-
-        found = False
-        for item in data_list:
-            if item["_OrderRequest__order_id"] == data.order_id:
-                found = True
-        if found is False:
-            data_list.append(data.__dict__)
-        else:
-            raise OrderManagementException("order_id is already registered in orders_store")
-        try:
-            with open(file_store, "w", encoding="utf-8", newline="") as file:
-                json.dump(data_list, file, indent=2)
-        except FileNotFoundError as ex:
-            raise OrderManagementException("Wrong file or file path") from ex
-        return True
 
     @staticmethod
     def save_fast(data): # TODO change names to be more descriptive
