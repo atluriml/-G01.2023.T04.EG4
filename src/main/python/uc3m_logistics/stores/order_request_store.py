@@ -36,16 +36,15 @@ class OrderRequestStore(JsonStore):
             if order.order_id != found_item[OrderRequestKeys.ID.value]:
                 raise OrderManagementException(ExceptionMessages.ORDERS_DATA_MANIPULATED)
             return order
-        else:
-            raise OrderManagementException(ExceptionMessages.ORDER_ID_NOT_FOUND)
+        raise OrderManagementException(ExceptionMessages.ORDER_ID_NOT_FOUND)
 
-    def add_item(self, new_item):
+    def add_item(self, item):
         found = False
-        for item in self.data:
-            if item[OrderRequestKeys.ID.value]  == new_item.order_id:
+        for i in self.data:
+            if i[OrderRequestKeys.ID.value] == item.order_id:
                 found = True
             if not found:
-                self.data.append(new_item.__dict__)
-                self.data = self.data
+                self.data.append(item.__dict__)
+                self.save()
             else:
                 raise OrderManagementException(ExceptionMessages.ORDER_ID_ALREADY_EXISTS)

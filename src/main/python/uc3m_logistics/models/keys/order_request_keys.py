@@ -11,4 +11,3 @@ class OrderRequestKeys(Enum):
     ORDER_TYPE = "_OrderRequest__order_type"
     PRODUCT_ID = "_OrderRequest__product_id"
     ID = "_OrderRequest__order_id"
-
