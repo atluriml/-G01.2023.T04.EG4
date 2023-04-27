@@ -9,6 +9,7 @@ from uc3m_logistics.models.order_delivery import OrderDelivery
 from uc3m_logistics.models.send_product_input import SendProductInput
 
 
+
 class OrderManager:
     """Class for providing the methods for managing the orders process"""
     def __init__(self):
