@@ -2,7 +2,8 @@
 
 import re
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
-from.attribute import Attribute
+from uc3m_logistics.validation.attribute import Attribute
+
 
 class EAN13Attribute(Attribute):
     """EAN13 attribute class"""
@@ -13,7 +14,6 @@ class EAN13Attribute(Attribute):
         """function validates the ean_13 code"""
         checksum = 0
         code_read = -1
-        res = False
         valid_ean13_format = self.regex_ean13.fullmatch(value)
         if valid_ean13_format is None:
             raise OrderManagementException("Invalid EAN13 code string")
@@ -26,11 +26,11 @@ class EAN13Attribute(Attribute):
             if i == 0:
                 code_read = current_digit
             else:
-                checksum += (current_digit) * 3 if (i % 2 != 0) else current_digit
+                checksum += current_digit * 3 if (i % 2 != 0) else current_digit
         control_digit = (10 - (checksum % 10)) % 10
 
         if (code_read != -1) and (code_read == control_digit):
-            res = True
+            result = True
         else:
             raise OrderManagementException("Invalid EAN13 control digit")
-        return res
+        return result
