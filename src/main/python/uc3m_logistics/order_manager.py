@@ -13,7 +13,8 @@ from uc3m_logistics.models.send_product_input import SendProductInput
 
 
 class OrderManager:
-    """Class for providing the methods for managing the orders process"""
+
+
 
     class __OrderManager:
 
@@ -59,7 +60,9 @@ class OrderManager:
             OrderManager._instance = OrderManager.__OrderManager()
         return OrderManager._instance
 
+    def __getattr__(self, instances):
+        return getattr(self.instances_, instances)
 
-
-
+    def __setattr__(self, instances, value):
+        return setattr(self.instances_, instances, value)
 
