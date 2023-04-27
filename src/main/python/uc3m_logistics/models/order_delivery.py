@@ -1,5 +1,5 @@
+""""order devlivery module"""
 import datetime
-
 from uc3m_logistics.exceptions import OrderManagementException
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.stores import OrderShippingStore
@@ -8,11 +8,12 @@ from uc3m_logistics.validation import TrackingCodeAttribute
 
 
 class OrderDelivery:
+    """Class for providing the methods for delivering the orders"""
     
     def __init__(self, tracking_code):
         self.__tracking_code = TrackingCodeAttribute(tracking_code).value
         self.__delivery_date = str(datetime.utcnow())
-        
+
     @property
     def tracking_code(self):
         return self.__tracking_code
