@@ -1,3 +1,4 @@
+"""order delivery keys module"""
 from enum import Enum
 
 class OrderDeliveryKeys(Enum):
