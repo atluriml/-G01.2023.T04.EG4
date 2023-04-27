@@ -26,6 +26,7 @@ class OrderRequest:
         return "OrderRequest:" + json.dumps(self.__dict__)
 
     def save_to_store(self):
+        """save to store method"""
         OrderRequestStore().add_item(self)
 
     @property

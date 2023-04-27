@@ -1,23 +1,27 @@
+"""Send Product Input Module"""
+import json
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from uc3m_logistics.validation.email_attribute import EmailAttribute
 from uc3m_logistics.validation.order_id_attribute import OrderIdAttributes
-import json
-
 
 class SendProductInput:
-
+    """SendProductInput Class"""
     def __init__(self, order_id, email):
         self.__order_id = OrderIdAttributes(order_id).value
         self.__email = EmailAttribute(email).value
 
     @property
     def order_id(self):
+        """order id function"""
         return self.__order_id
 
+    @property
     def email(self):
+        """email function"""
         return self.__email
 
     def from_json(cls, file_path):
+        """from json method"""
         try:
             with open(file_path, "r", encoding="utf-8", newline="") as file_path:
                 data = json.load(file_path)
@@ -33,4 +37,3 @@ class SendProductInput:
             raise OrderManagementException("Bad label Order ID")
 
         return cls(data["OrderID"], data["ContactEmail"])
-

@@ -34,6 +34,7 @@ class OrderShipping():
 
     @classmethod
     def from_send_input_file(cls, input_file_path: str):
+        """from send input file method"""
         send_product_input = SendProductInput.from_json(input_file_path)
 
         order_request = OrderRequestStore().find_item_by_key(send_product_input.order_id)
