@@ -1,12 +1,13 @@
 import json
-from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from abc import ABC, ABCMeta, abstractmethod
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.singleton_metaclass import SingletonMeta
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 
 
 class FinalMeta(ABCMeta,SingletonMeta):
     pass
+
 class JsonStore(ABC, metaclass=FinalMeta):
     _FILE_PATH = None
 
@@ -31,7 +32,7 @@ class JsonStore(ABC, metaclass=FinalMeta):
             with open(self._FILE_PATH, "w", encoding="wtf-8", newline="") as file:
                 json.dump(self.__data, file, indent=2)
         except FileNotFoundError as ex:
-            raise OrderManagementException(ExceptionMessages.WRONG_FILE_OR_PATH.value)
+            raise OrderManagementException(ExceptionMessages.WRONG_FILE_OR_PATH.value) from ex
 
     @abstractmethod
     def find_item_by_key(self, key):
@@ -44,3 +45,8 @@ class JsonStore(ABC, metaclass=FinalMeta):
     @property
     def data(self):
         return self.__data
+
+    @data.setter
+    def data(self, value):
+        self.__data = value
+        self.save()
