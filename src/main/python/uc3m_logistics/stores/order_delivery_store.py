@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class OrderDeliveryStore(JsonStore):
-    _FILE_PATH = JSON_FILES_PATH + "deliver_store.json"
+    _FILE_PATH = JSON_FILES_PATH + "delivery_store.json"
 
     def find_item_by_key(self, key):
         for item in self.data:
