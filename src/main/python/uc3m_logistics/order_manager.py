@@ -3,6 +3,7 @@ from uc3m_logistics.models.order_request import OrderRequest
 from uc3m_logistics.models.order_shipping import OrderShipping
 from uc3m_logistics.models.order_delivery import OrderDelivery
 
+
 class OrderManager:
     """Class for providing the methods for managing the orders process"""
 
@@ -29,7 +30,8 @@ class OrderManager:
             return order_request.order_id
 
         # pylint: disable=too-many-locals
-        def send_product(self, input_file):
+        @staticmethod
+        def send_product(input_file):
             """Sends the order included in the input_file"""
 
             order_shipping = OrderShipping.from_send_input_file(input_file)
