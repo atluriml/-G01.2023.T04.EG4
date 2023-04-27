@@ -33,7 +33,7 @@ class JsonStore(ABC, metaclass=FinalMeta):
     def save(self):
         """save function"""
         try:
-            with open(self._FILE_PATH, "w", encoding="wtf-8", newline="") as file:
+            with open(self._FILE_PATH, "w", encoding="utf-8", newline="") as file:
                 json.dump(self.__data, file, indent=2)
         except FileNotFoundError as ex:
             raise OrderManagementException(ExceptionMessages.WRONG_FILE_OR_PATH.value) from ex

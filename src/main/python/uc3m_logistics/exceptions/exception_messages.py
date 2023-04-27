@@ -7,7 +7,7 @@ class ExceptionMessages(Enum):
     WRONG_FILE_OR_PATH = "wrong provided file or path"
     JSON_DECODE_ERROR = "JSON decoding error"
     ORDERS_DATA_MANIPULATED = "Orders' data have been manipulated"
-    ORDER_ID_ALREADY_EXISTS = "Order_id is already registered in order_stores"
+    ORDER_ID_ALREADY_EXISTS = "order_id is already registered in order_stores"
     FILE_NOT_FOUND = "File is not found"
 
     """ATTRIBUTES"""
