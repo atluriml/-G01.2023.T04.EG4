@@ -1,20 +1,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
 class ExceptionMessages():
 
     WRONG_FILE_OR_PATH = "wrong provided file or path"
     JSON_DECODE_ERROR = "JSON decoding error"
     ORDERS_DATA_MANIPULATED = "'Orders' data have been manipulated"
+    ORDER_ID_ALREADY_EXISTS = "Order_id is already registered in order_stores"
 
     """ATTRIBUTES"""
     ADDRESS_NOT_VALID = "address is not valid"
@@ -28,7 +20,6 @@ class ExceptionMessages():
     TRACKING_CODE_NOT_VALID = "tracking code is not valid"
     ZIP_CODE_FORMAT_NOT_VALID = "zip code format is not valid"
     ZIP_CODE_NOT_VALID = "zip code is not valid"
-    ORDER_ID_NOT_VALID = "OrderIS is not present"
     CONTACT_EMAIL_NOT_PRESENT = "ContactEmail is not present"
 
     """ORDER DELIVERY"""

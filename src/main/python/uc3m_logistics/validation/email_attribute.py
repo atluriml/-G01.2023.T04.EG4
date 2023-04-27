@@ -1,11 +1,15 @@
-from.attribute import Attribute
-import re
+"""Email Attribute module"""
 
+import re
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
+from .attribute import Attribute
+
 class EmailAttribute(Attribute):
+    """Email Attribute Class"""
     regex_email = r'^[a-z0-9]+([\._]?[a-z0-9]+)+[@](\w+[.])+\w{2,3}$'
 
     def validate(self, value):
+        """function validates email attribute"""
         myregex = re.compile(self.regex_email)
         res = myregex.fullmatch(value)
         if not res:
