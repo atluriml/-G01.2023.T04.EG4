@@ -1,14 +1,11 @@
 """ Order Manager Module """
-import datetime
 import re
 import json
-from datetime import datetime
-from freezegun import freeze_time
 from src.main.python.uc3m_logistics.models.order_request import OrderRequest
-from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from src.main.python.uc3m_logistics.models.order_shipping import OrderShipping
 from src.main.python.uc3m_logistics.order_manager_config import JSON_FILES_PATH
-from uc3m_logistics.models.send_product_input import SendProductInput
+from uc3m_logistics.models.order_delivery import OrderDelivery
 
 
 class OrderManager:
@@ -106,9 +103,15 @@ class OrderManager:
         return my_order.order_id
 
     #pylint: disable=too-many-locals
-    def send_product ( self, input_file ):
+    def send_product (input_file ):
         """Sends the order included in the input_file"""
 
+        order_shipping = OrderShipping.from_send_input_file(input_file)
+        order_shipping.save_to_store()
+
+        return order_shipping.tracking_code
+
+        '''
 
         # TODO this is what the function should look like
         # order_shipping = OrderShipping.from_send_input_file(input_file)
@@ -184,10 +187,17 @@ class OrderManager:
 
         self.save_orders_shipped(my_sign)
 
-        return my_sign.tracking_code
+        return my_sign.tracking_code'''
 
     def deliver_product( self, tracking_code ):
         """Register the delivery of the product"""
+
+        order_delivery = OrderDelivery.from_order_tracking_code(tracking_code)
+        order_delivery.save_to_store()
+
+        return True
+
+        '''
         self.validate_tracking_code(tracking_code)
 
         # check if this tracking_code is in shipments_store
@@ -233,4 +243,4 @@ class OrderManager:
                 json.dump(data_list, file, indent=2)
         except FileNotFoundError as exception:
             raise OrderManagementException("Wrong file or file path") from exception
-        return True
+        return True'''

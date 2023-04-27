@@ -1,7 +1,7 @@
 from.attribute import Attribute
 import re
 
-from uc3m_logistics.order_management_exception import OrderManagementException
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 class EmailAttribute(Attribute):
     regex_email = r'^[a-z0-9]+([\._]?[a-z0-9]+)+[@](\w+[.])+\w{2,3}$'
 
