@@ -16,7 +16,7 @@ class SingletonMeta:
         def __new__(cls):
             if not SingletonMeta.instances_:
                 SingletonMeta.instances_ = SingletonMeta.Singleton()
-                return SingletonMeta.instances_
+            return SingletonMeta.instances_
 
         def __getattr__(self, instances):
             return getattr(self.instances_, instances)
