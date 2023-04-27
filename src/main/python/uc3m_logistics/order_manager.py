@@ -68,15 +68,15 @@ class OrderManager:
                         zip_code ):
         """Register the orders into the order's file"""
 
-        my_order = OrderRequest(product_id,
+        order_request = OrderRequest(product_id,
                                 order_type,
                                 address,
                                 phone_number,
                                 zip_code)
 
-        self.save_store(my_order)
+        order_request.save_to_store()
 
-        return my_order.order_id
+        return order_request.order_id
 
     #pylint: disable=too-many-locals
     def send_product (input_file ):

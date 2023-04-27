@@ -1,7 +1,7 @@
 from datetime import datetime
 from freezegun import freeze_time
 
-from uc3m_logistics import OrderManagementException
+from uc3m_logistics.exceptions import OrderManagementException
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.models.keys.order_request_keys import OrderRequestKeys
 from uc3m_logistics.stores import JsonStore
@@ -34,9 +34,9 @@ class OrderRequestStore(JsonStore):
                                      phone_number=phone,
                                      zip_code=zip_code)
             if order.order_id != found_item[OrderRequestKeys.ID.value]:
-                raise OrderManagementException(ExceptionMessages.ORDERS_DATA_MANIPULATED)
+                raise OrderManagementException(ExceptionMessages.ORDERS_DATA_MANIPULATED.value)
             return order
-        raise OrderManagementException(ExceptionMessages.ORDER_ID_NOT_FOUND)
+        raise OrderManagementException(ExceptionMessages.ORDER_ID_NOT_FOUND.value)
 
     def add_item(self, item):
         found = False
@@ -47,4 +47,4 @@ class OrderRequestStore(JsonStore):
                 self.data.append(item.__dict__)
                 self.save()
             else:
-                raise OrderManagementException(ExceptionMessages.ORDER_ID_ALREADY_EXISTS)
+                raise OrderManagementException(ExceptionMessages.ORDER_ID_ALREADY_EXISTS.value)

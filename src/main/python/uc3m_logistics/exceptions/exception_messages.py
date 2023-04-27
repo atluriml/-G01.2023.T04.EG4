@@ -1,11 +1,13 @@
 from enum import Enum
 
 class ExceptionMessages(Enum):
+    # TODO: ORGANIZE THIS CLASS
 
     WRONG_FILE_OR_PATH = "wrong provided file or path"
     JSON_DECODE_ERROR = "JSON decoding error"
     ORDERS_DATA_MANIPULATED = "'Orders' data have been manipulated"
     ORDER_ID_ALREADY_EXISTS = "Order_id is already registered in order_stores"
+    FILE_NOT_FOUND = "File is not found"
 
     """ATTRIBUTES"""
     ADDRESS_NOT_VALID = "address is not valid"

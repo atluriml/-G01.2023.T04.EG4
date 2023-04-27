@@ -1,6 +1,6 @@
 import datetime
 
-from uc3m_logistics import OrderManagementException
+from uc3m_logistics.exceptions import OrderManagementException
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.stores import OrderShippingStore
 from uc3m_logistics.stores.order_delivery_store import OrderDeliveryStore
@@ -33,10 +33,10 @@ class OrderDelivery:
         TrackingCodeAttribute(tracking_code)
         order_shipping = OrderShippingStore().find_item_by_key(tracking_code)
         if not order_shipping:
-            raise OrderManagementException(ExceptionMessages.TRACKING_CODE_IS_NOT_FOUND)
+            raise OrderManagementException(ExceptionMessages.TRACKING_CODE_IS_NOT_FOUND.value)
 
         today = datetime.today().date()
         delivery_date = datetime.fromtimestamp(order_shipping["_OrderShipping__delivery_day"]).date()
         if delivery_date != today:
-            raise OrderManagementException(ExceptionMessages.TODAY_IS_NOT_DELIVERY_DATE)
+            raise OrderManagementException(ExceptionMessages.TODAY_IS_NOT_DELIVERY_DATE.value)
         return cls(tracking_code)
