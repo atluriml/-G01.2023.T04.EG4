@@ -26,7 +26,7 @@ class JsonStore(ABC, metaclass=FinalMeta):
             data = []
             with open(self._FILE_PATH, "w", encoding="utf-8", newline="") as file:
                 json.dump(data, file, indent=2)
-        except json.JSONDecoder as ex:
+        except json.JSONDecodeError as ex:
             raise OrderManagementException(ExceptionMessages.JSON_DECODE_ERROR.value) from ex
         return data
 
