@@ -1,6 +1,6 @@
 """ Abstract Attribute Module """
-
 from abc import abstractmethod, ABC
+
 
 class Attribute(ABC):
     """Attribute class"""
