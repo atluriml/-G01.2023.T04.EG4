@@ -1,4 +1,5 @@
 """__init__ Module for the Validation Directory"""
+
 from .attribute import Attribute
 from .address_attribute import AddressAttribute
 from .ean13_attribute import EAN13Attribute

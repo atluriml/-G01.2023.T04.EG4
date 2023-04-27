@@ -1,6 +1,7 @@
 """Email Attribute module"""
 
 import re
+from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from .attribute import Attribute
 
@@ -13,4 +14,4 @@ class EmailAttribute(Attribute):
         myregex = re.compile(self.regex_email)
         res = myregex.fullmatch(value)
         if not res:
-            raise OrderManagementException("contact email is not valid")
+            raise OrderManagementException(ExceptionMessages.EMAIL_NOT_VALID.value)

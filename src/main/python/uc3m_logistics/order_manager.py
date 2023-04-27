@@ -1,11 +1,13 @@
 """ Order Manager Module """
 import re
 import json
-from src.main.python.uc3m_logistics.models.order_request import OrderRequest
+from uc3m_logistics.models.order_request import OrderRequest
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
-from src.main.python.uc3m_logistics.models.order_shipping import OrderShipping
-from src.main.python.uc3m_logistics.order_manager_config import JSON_FILES_PATH
+from uc3m_logistics.models.order_shipping import OrderShipping
+from uc3m_logistics.order_manager_config import JSON_FILES_PATH
 from uc3m_logistics.models.order_delivery import OrderDelivery
+from .singleton_metaclass import SingletonMeta
+
 from uc3m_logistics.models.send_product_input import SendProductInput
 
 

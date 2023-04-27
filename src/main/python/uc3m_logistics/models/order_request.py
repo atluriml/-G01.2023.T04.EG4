@@ -2,7 +2,8 @@
 import hashlib
 import json
 from datetime import datetime
-from src.main.python.uc3m_logistics.validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, \
+
+from uc3m_logistics.validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, \
     PhoneNumberAttribute, AddressAttribute
 from uc3m_logistics.stores.order_request_store import OrderRequestStore
 
@@ -10,7 +11,7 @@ from uc3m_logistics.stores.order_request_store import OrderRequestStore
 class OrderRequest:
     """Class representing the register of the order in the system"""
     #pylint: disable=too-many-arguments
-    def __init__( self, product_id, order_type,
+    def __init__(self, product_id, order_type,
                   delivery_address, phone_number, zip_code ):
         self.__product_id = EAN13Attribute(product_id).value
         self.__delivery_address = AddressAttribute(delivery_address).value
@@ -19,7 +20,7 @@ class OrderRequest:
         self.__zip_code = ZipCodeAttribute(zip_code).value
         justnow = datetime.utcnow()
         self.__time_stamp = datetime.timestamp(justnow)
-        self.__order_id =  hashlib.md5(self.__str__().encode()).hexdigest()
+        self.__order_id = hashlib.md5(self.__str__().encode()).hexdigest()
 
     def __str__(self):
         return "OrderRequest:" + json.dumps(self.__dict__)
