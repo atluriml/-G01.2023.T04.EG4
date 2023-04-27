@@ -14,6 +14,23 @@ from uc3m_logistics.models.send_product_input import SendProductInput
 
 class OrderManager:
     """Class for providing the methods for managing the orders process"""
+
+    class __OrderManager:
+        def __init__(self):
+            pass
+        def request_order(self, delivery_address, order_type, phone_number, zip_code, order_id):
+            pass
+
+        def get_order(self, product_id):
+            pass
+
+    __instances = None
+
+    def __new__(cls):
+        if not OrderManager.__instances:
+            OrderManager.__instances = OrderManager.__OrderManager()
+        return OrderManager.__instances
+
     def __init__(self):
         pass
 
@@ -37,7 +54,7 @@ class OrderManager:
             json.dump(data_list, file, indent=2)
 
     @staticmethod
-    def save_orders_shipped( shipment ):
+    def save_orders_shipped(shipment):
         """Saves the shipping object into a file"""
         shimpents_store_file = JSON_FILES_PATH + "shipments_store.json"
         # first read the file
