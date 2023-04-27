@@ -1,7 +1,8 @@
 """Order Type Module"""
 import re
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
-from .attribute import Attribute
+from uc3m_logistics.validation.attribute import Attribute
+
 
 class OrderTypeAttribute(Attribute):
     """Order Type Attribute"""
