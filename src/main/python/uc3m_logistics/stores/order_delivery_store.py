@@ -1,4 +1,4 @@
-from uc3m_logistics.models import OrderDeliveryKeys
+
 from uc3m_logistics.order_manager_config import JSON_FILES_PATH
 from uc3m_logistics.stores.json_store import JsonStore
 
@@ -12,6 +12,7 @@ class OrderDeliveryStore(JsonStore):
 
     def find_item_by_key(self, key):
         for item in self.data:
+            from uc3m_logistics.models import OrderDeliveryKeys
             if item[OrderDeliveryKeys.ID.value] == key:
                 return item
             return None
