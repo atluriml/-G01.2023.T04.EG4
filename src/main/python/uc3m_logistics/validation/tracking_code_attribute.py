@@ -1,7 +1,7 @@
 """Tracking Code Validation Module"""
 
 import re
-from uc3m_logistics.order_management_exception import OrderManagementException
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from .attribute import Attribute
 class TrackingCodeAttribute(Attribute):
     """Tracking Code Validation Class"""

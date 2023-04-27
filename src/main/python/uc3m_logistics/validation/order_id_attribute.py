@@ -1,5 +1,13 @@
-from .attribute import Attribute
+from.attribute import Attribute
+import re
 
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 
 class OrderIdAttributes(Attribute):
-    pass
+
+    order_id_regex = re.compile(r"[0-9a-fA-F]{32}$")
+
+    def validate(self, value):
+        res = self.order_id_regex.fullmatch(value)
+        if not res:
+            raise OrderManagementException("order id is not valid")

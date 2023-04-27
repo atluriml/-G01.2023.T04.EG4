@@ -1,5 +1,7 @@
 
-
+from uc3m_logistics.models.keys.order_shipping_keys import OrderShippingKeys
+from uc3m_logistics.order_manager_config import Config
+from uc3m_logistics.stores import JsonStore
 
 
 class OrderShippingStore(JsonStore):
@@ -13,4 +15,4 @@ class OrderShippingStore(JsonStore):
 
     def add_item(self, new_item):
         self.data.append(new_item.__dict__)
-        self.data = self.data
+        self.save()

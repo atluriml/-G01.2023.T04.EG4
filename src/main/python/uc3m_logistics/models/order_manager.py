@@ -1,13 +1,11 @@
 """ Order Manager Module """
-import datetime
 import re
 import json
-from datetime import datetime
-from freezegun import freeze_time
 from src.main.python.uc3m_logistics.models.order_request import OrderRequest
-from src.main.python.uc3m_logistics.order_management_exception import OrderManagementException
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 from src.main.python.uc3m_logistics.models.order_shipping import OrderShipping
 from src.main.python.uc3m_logistics.order_manager_config import JSON_FILES_PATH
+from uc3m_logistics.models.order_delivery import OrderDelivery
 from uc3m_logistics.models.send_product_input import SendProductInput
 
 
@@ -25,34 +23,6 @@ class OrderManager:
         if not res:
             raise OrderManagementException("tracking_code format is not valid")
 
-    @staticmethod
-    def save_store (data) :
-        """Method for saving the orders store"""
-        file_store = JSON_FILES_PATH + "orders_store.json"
-        #first read the file
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                data_list = json.load(file)
-        except FileNotFoundError:
-            # file is not found , so init my data_list
-            data_list = []
-        except json.JSONDecodeError as ex:
-            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from ex
-
-        found = False
-        for item in data_list:
-            if item["_OrderRequest__order_id"] == data.order_id:
-                found = True
-        if found is False:
-            data_list.append(data.__dict__)
-        else:
-            raise OrderManagementException("order_id is already registered in orders_store")
-        try:
-            with open(file_store, "w", encoding="utf-8", newline="") as file:
-                json.dump(data_list, file, indent=2)
-        except FileNotFoundError as ex:
-            raise OrderManagementException("Wrong file or file path") from ex
-        return True
 
     @staticmethod
     def save_fast(data): # TODO change names to be more descriptive
@@ -89,7 +59,6 @@ class OrderManager:
 
 
     #pylint: disable=too-many-arguments
-    """first function"""
     def register_order( self, product_id,
                         order_type,
                         address,
@@ -108,10 +77,23 @@ class OrderManager:
         return my_order.order_id
 
     #pylint: disable=too-many-locals
-    """second function"""
-    def send_product ( self, input_file ):
+    def send_product (input_file ):
         """Sends the order included in the input_file"""
 
+        order_shipping = OrderShipping.from_send_input_file(input_file)
+        order_shipping.save_to_store()
+
+        return order_shipping.tracking_code
+
+        '''
+
+        # TODO this is what the function should look like
+        # order_shipping = OrderShipping.from_send_input_file(input_file)
+        # order_shipping.save_to_store()
+
+
+        #TODO THIS IS THE FIRST PART for this method i jsut commented it out
+        #send_product_input = SendProductInput.from_json(input_file)
 
 
         try:
@@ -142,6 +124,7 @@ class OrderManager:
             raise OrderManagementException("Bad label") from ex
         file_store = JSON_FILES_PATH + "orders_store.json"
 
+        # TODO implement this part still
         with open(file_store, "r", encoding="utf-8", newline="") as file:
             data_list = json.load(file)
         found = False
@@ -178,10 +161,17 @@ class OrderManager:
 
         self.save_orders_shipped(my_sign)
 
-        return my_sign.tracking_code
+        return my_sign.tracking_code'''
 
     def deliver_product( self, tracking_code ):
         """Register the delivery of the product"""
+
+        order_delivery = OrderDelivery.from_order_tracking_code(tracking_code)
+        order_delivery.save_to_store()
+
+        return True
+
+        '''
         self.validate_tracking_code(tracking_code)
 
         # check if this tracking_code is in shipments_store
@@ -227,4 +217,4 @@ class OrderManager:
                 json.dump(data_list, file, indent=2)
         except FileNotFoundError as exception:
             raise OrderManagementException("Wrong file or file path") from exception
-        return True
+        return True'''

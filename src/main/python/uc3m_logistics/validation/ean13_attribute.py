@@ -1,7 +1,7 @@
 from.attribute import Attribute
 import re
 
-from uc3m_logistics.order_management_exception import OrderManagementException
+from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 class EAN13Attribute(Attribute):
 
     regex_ean13 = re.compile("^[0-9]{13}$")

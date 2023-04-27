@@ -4,6 +4,8 @@ import json
 from datetime import datetime
 from src.main.python.uc3m_logistics.validation import OrderTypeAttribute, EAN13Attribute, ZipCodeAttribute, \
     PhoneNumberAttribute, AddressAttribute
+from uc3m_logistics.stores.order_request_store import OrderRequestStore
+
 
 class OrderRequest:
     """Class representing the register of the order in the system"""
@@ -22,6 +24,8 @@ class OrderRequest:
     def __str__(self):
         return "OrderRequest:" + json.dumps(self.__dict__)
 
+    def save_to_store(self):
+        OrderRequestStore().add_item(self)
 
 
     @property

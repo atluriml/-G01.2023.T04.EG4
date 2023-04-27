@@ -3,6 +3,8 @@ from datetime import datetime
 import hashlib
 
 from uc3m_logistics.models.send_product_input import SendProductInput
+from uc3m_logistics.stores import OrderShippingStore
+from uc3m_logistics.stores.order_request_store import OrderRequestStore
 
 
 #pylint: disable=too-many-instance-attributes
