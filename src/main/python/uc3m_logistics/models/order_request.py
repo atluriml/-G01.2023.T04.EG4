@@ -28,7 +28,6 @@ class OrderRequest:
     def save_to_store(self):
         OrderRequestStore().add_item(self)
 
-
     @property
     def delivery_address( self ):
         """Property representing the address where the product

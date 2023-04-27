@@ -26,7 +26,7 @@ class OrderRequestStore(JsonStore):
             order_timestamp = found_item[OrderRequestKeys.TIME_STAMP.value]
             zip_code = found_item[OrderRequestKeys.ZIP_CODE.value]
 
-            with freeze_time(datetime.fromtimestamp(order_timestamp).date()):
+            with freeze_time(datetime.fromtimestamp(order_timestamp).date()): # lazy import
                 from uc3m_logistics.models.order_request import OrderRequest
                 order = OrderRequest(product_id=product_id,
                                      order_type=order_type,
