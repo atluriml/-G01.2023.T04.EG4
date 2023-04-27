@@ -7,8 +7,8 @@ from uc3m_logistics.stores import OrderShippingStore
 from uc3m_logistics.stores.order_request_store import OrderRequestStore
 
 
-#pylint: disable=too-many-instance-attributes
-class OrderShipping():
+# pylint: disable=too-many-instance-attributes
+class OrderShipping:
     """Class representing the shipping of an order"""
 
     def __init__(self, product_id, order_id, delivery_email, order_type):
@@ -23,8 +23,8 @@ class OrderShipping():
             delivery_days = 7
         else:
             delivery_days = 1
-        #timestamp is represneted in seconds.microseconds
-        #__delivery_day must be expressed in senconds to be added to the timestap
+        # timestamp is represneted in seconds.microseconds
+        # __delivery_day must be expressed in senconds to be added to the timestap
         self.__delivery_day = self.__issued_at + (delivery_days * 24 * 60 * 60)
         self.__tracking_code = hashlib.sha256(self.__signature_string().encode()).hexdigest()
 
@@ -45,14 +45,15 @@ class OrderShipping():
                              delivery_email=send_product_input.email)
 
         return order_shipping
-    def __signature_string( self ):
+
+    def __signature_string(self):
         """Composes the string to be used for generating the tracking_code"""
         return "{alg:" + self.__alg + ",typ:" + self.__type + ",order_id:" + \
                self.__order_id + ",issuedate:" + str(self.__issued_at) + \
                ",deliveryday:" + str(self.__delivery_day) + "}"
 
     @property
-    def product_id( self ):
+    def product_id(self):
         """Property that represents the product_id of the order"""
         return self.__product_id
 
