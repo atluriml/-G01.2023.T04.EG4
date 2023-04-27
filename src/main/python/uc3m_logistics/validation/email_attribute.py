@@ -3,7 +3,8 @@
 import re
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
-from .attribute import Attribute
+from uc3m_logistics.validation.attribute import Attribute
+
 
 class EmailAttribute(Attribute):
     """Email Attribute Class"""
@@ -11,7 +12,7 @@ class EmailAttribute(Attribute):
 
     def validate(self, value):
         """function validates email attribute"""
-        myregex = re.compile(self.regex_email)
-        res = myregex.fullmatch(value)
+        my_regex = re.compile(self.regex_email)
+        res = my_regex.fullmatch(value)
         if not res:
             raise OrderManagementException(ExceptionMessages.EMAIL_NOT_VALID.value)
