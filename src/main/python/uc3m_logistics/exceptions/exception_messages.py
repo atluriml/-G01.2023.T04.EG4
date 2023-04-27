@@ -1,6 +1,6 @@
 from enum import Enum
 
-class ExceptionMessages():
+class ExceptionMessages(Enum):
 
     WRONG_FILE_OR_PATH = "wrong provided file or path"
     JSON_DECODE_ERROR = "JSON decoding error"
