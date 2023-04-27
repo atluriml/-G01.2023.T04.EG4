@@ -1,12 +1,16 @@
-from.attribute import Attribute
-import re
+"""Ean13 Attribute Module"""
 
+import re
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
+from.attribute import Attribute
+
 class EAN13Attribute(Attribute):
+    """EAN13 attribute class"""
 
     regex_ean13 = re.compile("^[0-9]{13}$")
 
     def validate(self, value):
+        """function validates the ean_13 code"""
         checksum = 0
         code_read = -1
         res = False
