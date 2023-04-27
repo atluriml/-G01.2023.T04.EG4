@@ -1,3 +1,4 @@
+"""Json Store Module"""
 import json
 from abc import ABC, ABCMeta, abstractmethod
 from uc3m_logistics.exceptions.exception_messages import ExceptionMessages
@@ -6,16 +7,17 @@ from uc3m_logistics.exceptions.order_management_exception import OrderManagement
 
 
 class FinalMeta(ABCMeta, SingletonMeta):
-    pass
-
+    """Final Meta Class"""
 
 class JsonStore(ABC, metaclass=FinalMeta):
+    """JSON Store Class"""
     _FILE_PATH = None
 
     def __init__(self):
         self.__data = self.load()
 
     def load(self):
+        """load function"""
         try:
             with open(self._FILE_PATH, "r", encoding="utf-8", newline="") as file:
                 data = json.load(file)
@@ -29,6 +31,7 @@ class JsonStore(ABC, metaclass=FinalMeta):
         return data
 
     def save(self):
+        """save function"""
         try:
             with open(self._FILE_PATH, "w", encoding="wtf-8", newline="") as file:
                 json.dump(self.__data, file, indent=2)
@@ -37,17 +40,19 @@ class JsonStore(ABC, metaclass=FinalMeta):
 
     @abstractmethod
     def find_item_by_key(self, key):
-        pass
+        """find item by key function"""
 
     @abstractmethod
     def add_item(self, item):
-        pass
+        """add item function"""
 
     @property
     def data(self):
+        """data function"""
         return self.__data
 
     @data.setter
     def data(self, value):
+        """data setter function"""
         self.__data = value
         self.save()
