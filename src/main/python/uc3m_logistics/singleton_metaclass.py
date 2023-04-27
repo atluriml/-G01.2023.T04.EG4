@@ -1,6 +1,7 @@
 """Module for the singleton type class"""
 
 
+# pylint: disable=too-few-public-methods
 class SingletonMeta:
     """ Class to apply Singleton pattern"""
     class Singleton:

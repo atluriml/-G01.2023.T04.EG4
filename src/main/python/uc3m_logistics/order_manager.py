@@ -6,6 +6,7 @@ from uc3m_logistics.models.order_delivery import OrderDelivery
 class OrderManager:
     """Class for providing the methods for managing the orders process"""
 
+    # pylint: disable=invalid-name
     class __OrderManager:
 
         @staticmethod
@@ -57,6 +58,3 @@ class OrderManager:
 
     def __setattr__(self, key, value):
         return setattr(self._instance, key, value)
-
-
-
