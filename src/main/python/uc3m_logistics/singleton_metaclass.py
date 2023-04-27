@@ -1,14 +1,25 @@
 """Module for the singleton type class"""
 
 
-class SingletonMeta(type):
+class SingletonMeta(object):
     """ Class to apply Singleton pattern"""
-    _instances = {}
+    class singleton:
+        def __init__(self):
+            self.instances = None
 
-    def __call__(cls, *args, **kwargs):
+        def __str__(self):
+            return 'self' + '' + self.instances
 
-        if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
 
-        return cls._instances[cls]
+        instances_ = None
+
+        def __new__(cls):
+            if not SingletonMeta.instances_:
+                SingletonMeta.instances_= SingletonMeta.singleton()
+                return SingletonMeta.instances_
+
+        def __getattr__(self, instances):
+            return getattr(self.instances_, instances)
+
+        def __setattr__(self, instances, value):
+            return setattr(self.instances_, instances, value)
