@@ -9,6 +9,7 @@ from uc3m_logistics.exceptions.order_management_exception import OrderManagement
 class FinalMeta(ABCMeta, SingletonMeta):
     """Final Meta Class"""
 
+
 class JsonStore(ABC, metaclass=FinalMeta):
     """JSON Store Class"""
     _FILE_PATH = None
