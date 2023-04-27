@@ -1,4 +1,3 @@
-
 from uc3m_logistics.models.keys.order_shipping_keys import OrderShippingKeys
 from uc3m_logistics.order_manager_config import Config
 from uc3m_logistics.stores import JsonStore

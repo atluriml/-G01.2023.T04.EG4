@@ -5,8 +5,9 @@ from uc3m_logistics.singleton_metaclass import SingletonMeta
 from uc3m_logistics.exceptions.order_management_exception import OrderManagementException
 
 
-class FinalMeta(ABCMeta,SingletonMeta):
+class FinalMeta(ABCMeta, SingletonMeta):
     pass
+
 
 class JsonStore(ABC, metaclass=FinalMeta):
     _FILE_PATH = None
